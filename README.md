@@ -1,6 +1,7 @@
 # SCN--13X-666
 ShadowCore_Nexus_sigma13X_666
-<<<<<<< HEAD
+Project ID#
+PID#:SCN-Σ13X-666
 > SCN-Σ13X-666
 # Shadowcore Nexus
 >
@@ -16,21 +17,45 @@ A modular, plug-n-play, OS-independent Python dashboard hub for rapid deployment
 
 ## Directory Structure
 
+
+# Complete Directory Scaffold (Partial View)
+
+> Note: Only a partial list is shown due to GitHub code search limits. [View all files and folders here.](https://github.com/GR00T-User-706/SCN--13X-666/search?q=)
+
 ```
-Project ID#
-PID#:SCN-Σ13X-666
-SCN-Σ13X-666/
-├── shadowcore_nexus/
-│   ├── core/
-│   ├── interfaces/
-│   ├── utils/
-│   └── hub/
-├── tests/
-├── pyproject.toml
-├── README.md
-├── LICENSE
-└── .gitignore
+SCN--13X-666/
+└── src/
+    └── shadowcore_nexus/
+        ├── __main__.py
+        ├── core/
+        │   ├── __init__.py
+        │   └── configuration.py
+        ├── interfaces/
+        │   └── lilith_tui.py
+        ├── artifacts/
+        │   └── config/
+        │       └── phantom_scry_dir.txt
+        └── modules/
+            ├── net_mapper/
+            │   └── location.html
+            ├── net_scan.2.0.py
+            ├── revi_net_scanner.py
+            └── shadowveil/
+                ├── README.md
+                └── install.ps1
 ```
+
+- This scaffold covers the major submodules (`core`, `interfaces`, `artifacts`, `modules`) and several module examples (network scanning, mapping, anti-forensics).
+- Some files/folders may not be listed. For the full structure, browse the [GitHub file explorer](https://github.com/GR00T-User-706/SCN--13X-666).
+
+---
+
+## Additional Context
+
+- This layout reflects a modular, research-grade Python tooling framework, with forensic, networking, and anti-forensics utilities.
+- Each module or artifact directory may itself contain additional scripts, configs, or data assets.
+
+---
 
 # SHADOWSTEP CORE FRAMEWORK v2.7
 
@@ -55,46 +80,6 @@ Key Attributes:
 
 ---
 
-## 📂 Directory Structure
-
-```
-/ShadowCore/
-├── core/
-│   ├── handler.py
-│   ├── logger.py
-│   ├── paths.py
-│   ├── config.py
-│   └── __pycache__/
-├── ui/
-│   ├── lilith_tui.py
-│   ├── daemon_logger.py
-│   └── components/
-├── artifacts/
-│   ├── history/
-│   ├── configs/
-│   ├── keys/
-│   ├── outputs/
-│   └── logs/
-├── rituals/
-│   ├── scanner.py
-│   ├── simulated_mapper.py
-│   ├── netmap_ritual.py
-│   ├── phone_number_tracker.py
-│   ├── encoding.py
-│   ├── reverse_shell.py
-│   ├── modules/
-│   └── net_mapper/
-│       ├── lan_mapper.py
-│       ├── logger.py
-│       ├── requirements.txt
-│       └── __pycache__/
-├── daemon_ops.py
-├── README/
-│   └── ShadowCore_Technical_Blueprint_v1.3.md
-└── __init__.py
-```
-
----
 
 ## ⚙️ Module & File Breakdown
 
