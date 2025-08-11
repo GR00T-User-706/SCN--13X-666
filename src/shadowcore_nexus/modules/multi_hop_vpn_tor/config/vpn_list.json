@@ -1,0 +1,38 @@
+[
+  {
+    "name": "US1",
+    "ip": "203.0.113.10",
+    "protocol": "wireguard",
+    "wg_config": "/path/to/wg0.conf"
+  },
+  {
+    "name": "NL1",
+    "ip": "198.51.100.5",
+    "protocol": "openvpn",
+    "ovpn_config": "/path/to/client.ovpn"
+  },
+  {
+    "name": "US1",
+    "ip": "203.0.113.10",
+    "protocol": "wireguard",
+    "wg_config": "/path/to/wg0.conf"
+  },
+  {
+    "name": "NL1",
+    "ip": "198.51.100.5",
+    "protocol": "openvpn",
+    "ovpn_config": "/path/to/client.ovpn"
+  },
+  {
+    "name": "US1",
+    "ip": "203.0.113.10",
+    "protocol": "wireguard",
+    "wg_config": "/path/to/wg0.conf"
+  },
+  {
+    "name": "NL1",
+    "ip": "198.51.100.5",
+    "protocol": "openvpn",
+    "ovpn_config": "/path/to/client.ovpn"
+  }
+]
