@@ -25,6 +25,28 @@ A modular, plug-n-play, OS-independent Python dashboard hub for rapid deployment
 ```
 SCN--13X-666/
 └── src/
+    |multi-hop-vpn-tor/
+    |    │
+    |    ├── README.md
+    |    ├── __init__.py
+    |    ├── config/
+    |    │   ├── vpn_list.json
+    |    │   ├── torrc
+    |    │   ├── settings.yml
+    |    │    
+    |    ├── scripts/
+    |    │   ├── run.sh
+    |    │   ├── cleanup.sh
+    |    │
+    |    ├── src/
+    |    │   ├── __init__.py
+    |    │   ├── main.py
+    |    │   ├── vpn_manager.py
+    |    │   ├── tor_manager.py
+    |    │   ├── route_utils.py
+    |    │   ├── monitor.py
+    |    │
+    |    └── requirements.txt
     └── shadowcore_nexus/
         ├── __main__.py
         ├── core/
@@ -138,6 +160,22 @@ It uses Linux network namespaces to isolate each hop, with configurable rotation
 3. Run:
    ```bash
    ./scripts/run.sh
+   ./scripts/cleanup.sh
+Requirements
+Python 3.9+
+
+Linux with ip netns, iptables, nftables
+
+Installed VPN clients for protocols you use
+
+---
+
+### **config/settings.yml**
+```yaml
+hop_count: 2
+rotation_minutes: 45
+protocol: wireguard
+tor_control_port: 9051
 
 ### **init**.py
 
