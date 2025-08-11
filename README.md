@@ -1,5 +1,6 @@
 # SCN--13X-666
 ShadowCore_Nexus_sigma13X_666
+<<<<<<< HEAD
 > SCN-Σ13X-666
 # Shadowcore Nexus
 >
@@ -348,3 +349,5 @@ $ python3 rituals/phone_number_tracker.py --number +15551234567 --output artifac
                    └── 19.D: Curses UI Shell
 
 
+=======
+>>>>>>> 8fbaf72d867e6b872565538850560b4d6e4d8679
