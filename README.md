@@ -120,9 +120,24 @@ Key Attributes:
 
 - Primary DAEMON Operational Execution Script
 
-### README/
+### Multi-Hop VPN → Tor Stack
 
-- ShadowCore\_Technical\_Blueprint\_v1.3.md: (Legacy Documentation)
+## Overview
+This project builds a randomized, multi-hop VPN chain feeding into the Tor network for maximum privacy.  
+It uses Linux network namespaces to isolate each hop, with configurable rotation intervals.
+
+## Features
+- Random hop selection from a provider list
+- Supports multiple VPN protocols (WireGuard, OpenVPN, etc.)
+- Runs Tor inside the last VPN hop
+- Automatic failover and rotation
+
+## Usage
+1. Edit `config/vpn_list.json` with your VPN endpoints.
+2. Configure `torrc` in `config/`.
+3. Run:
+   ```bash
+   ./scripts/run.sh
 
 ### **init**.py
 
@@ -220,9 +235,6 @@ $ python3 rituals/phone_number_tracker.py --number +15551234567 --output artifac
 - Fully Interactive WebSocket Dashboard (Live Ritual Monitoring)
 
 ---
-
-**End of Document - ShadowCore v2.7 Tactical Blueprint (Updated Directory Structure & Ritual Mapping)**
-
 
 [ ShadowCore Nexus ]
         │
