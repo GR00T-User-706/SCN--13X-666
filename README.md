@@ -16,59 +16,121 @@ A modular, plug-n-play, OS-independent Python dashboard hub for rapid deployment
 - Extensible: Easy to add new features and module types.
 
 ## Directory Structure
-
-
-# Complete Directory Scaffold (Partial View)
-
-> Note: Only a partial list is shown due to GitHub code search limits. [View all files and folders here.](https://github.com/GR00T-User-706/SCN--13X-666/search?q=)
-
+# Complete Directory Scaffold 
 ```
-SCN--13X-666/
-└── src/
-    |multi-hop-vpn-tor/
-    |    │
-    |    ├── README.md
-    |    ├── __init__.py
-    |    ├── config/
-    |    │   ├── vpn_list.json
-    |    │   ├── torrc
-    |    │   ├── settings.yml
-    |    │    
-    |    ├── scripts/
-    |    │   ├── run.sh
-    |    │   ├── cleanup.sh
-    |    │
-    |    ├── src/
-    |    │   ├── __init__.py
-    |    │   ├── main.py
-    |    │   ├── vpn_manager.py
-    |    │   ├── tor_manager.py
-    |    │   ├── route_utils.py
-    |    │   ├── monitor.py
-    |    │
-    |    └── requirements.txt
-    └── shadowcore_nexus/
-        ├── __main__.py
-        ├── core/
-        │   ├── __init__.py
-        │   └── configuration.py
-        ├── interfaces/
-        │   └── lilith_tui.py
-        ├── artifacts/
-        │   └── config/
-        │       └── phantom_scry_dir.txt
-        └── modules/
-            ├── net_mapper/
-            │   └── location.html
-            ├── net_scan.2.0.py
-            ├── revi_net_scanner.py
-            └── shadowveil/
-                ├── README.md
-                └── install.ps1
+SCN--12X-666/
+├── README.md
+├── pyproject.toml
+├── src
+│   └── shadowcore_nexus
+│       ├── __init__.py
+│       ├── __main__.py
+│       ├── artifacts
+│       │   ├── config
+│       │   │   ├── config.json
+│       │   │   ├── daemon_config.json
+│       │   │   ├── id_forge.py
+│       │   │   ├── ip-ranges.json
+│       │   │   ├── phantom_scry_dir.txt
+│       │   │   ├── phantom_scry_dirty100_sample.json
+│       │   │   └── phanton_scry_dirty100_sample.csv
+│       │   ├── history
+│       │   ├── keys
+│       │   ├── logs
+│       │   │   ├── daemon.log
+│       │   │   └── daemon.logclear
+│       │   └── outputs
+│       ├── core
+│       │   ├── __init__.py
+│       │   ├── config.py
+│       │   ├── configuration.py
+│       │   ├── daemon_ops.py
+│       │   ├── event_system.py
+│       │   ├── handler.py
+│       │   ├── intel_harvester.py
+│       │   ├── module_loader.py
+│       │   ├── output_formatter.py
+│       │   ├── path_resolver.py
+│       │   ├── paths.py
+│       │   └── target_manager.py
+│       ├── interfaces
+│       │   ├── __init__.py
+│       │   ├── cli.py
+│       │   ├── cli_dispatcher.py
+│       │   ├── daemon_logger.py
+│       │   ├── lilith_tui.py
+│       │   └── tui.py
+│       ├── modules
+|       |   src/shadowcore_nexus/modules/multi_hop_vpn_tor/
+|       ├── __init__.py
+|       ├── README.md
+|       ├── config
+|       │   ├── settings.yml
+|       │   ├── vpn_list.json
+|       |   └── torrc
+|       ├── scripts
+|       │   ├── run.sh
+|       │   └── cleanup.sh
+|       ├── src
+|       │   ├── main.py
+|       │   ├── vpn_manager.py
+|       │   ├── tor_manager.py
+|       │   ├── route_utils.py
+|       │   └── monitor.py
+|       |   └── requirements.txt
+│       │   ├── email_scraper.py
+│       │   ├── financial_trail.py
+│       │   ├── forgeid
+│       │   ├── lan_mapper.py
+│       │   ├── legal_case_fetcher.py
+│       │   ├── logger.py
+│       │   ├── net_mapper
+│       │   │   ├── LICENSE
+│       │   │   ├── README.md
+│       │   │   ├── lan_mapper.py
+│       │   │   ├── location.html
+│       │   │   ├── logger.py
+│       │   │   ├── main.py
+│       │   │   ├── requirements.txt
+│       │   │   ├── tor_bridge.py
+│       │   │   ├── traffic_randomizer.py
+│       │   │   └── vpn_tunnel.py
+│       │   ├── net_scan.2.0.py
+│       │   ├── net_scanner.py
+│       │   ├── requirements.txt
+│       │   ├── revi_net_scanner.py
+│       │   ├── scry.py
+│       │   ├── shadowveil
+│       │   │   ├── README.md
+│       │   │   ├── ShadowVeil.py
+│       │   │   ├── __init__.py
+│       │   │   ├── cli.py
+│       │   │   ├── core.py
+│       │   │   ├── core_2.py
+│       │   │   ├── hub_adapter.py
+│       │   │   ├── install.ps1
+│       │   │   ├── install.sh
+│       │   │   └── module_manifest.json
+│       │   └── supply_chain_mapper.py
+│       ├── rituals
+│       │   ├── __init__.py
+│       │   ├── cleanslate_module.py
+│       │   ├── encoding.py
+│       │   ├── forgeid_v_1.py
+│       │   ├── netmap_ritual.py
+│       │   ├── phone_number_tracker.py
+│       │   ├── reverse_shell.py
+│       │   ├── scanner.py
+│       │   ├── scry.py
+│       │   └── simulated_mapper.py
+│       └── utils
+│           ├── __init__.py
+│           ├── compat.py
+│           ├── file_monitor.py
+│           ├── logging.py
+│           └── validation.py
+└── test
 ```
-
-- This scaffold covers the major submodules (`core`, `interfaces`, `artifacts`, `modules`) and several module examples (network scanning, mapping, anti-forensics).
-- Some files/folders may not be listed. For the full structure, browse the [GitHub file explorer](https://github.com/GR00T-User-706/SCN--13X-666).
 
 ---
 
