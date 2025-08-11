@@ -1,0 +1,363 @@
+#!/usr/bin/env python3
+
+import argparse
+import json
+import random
+import os
+import re
+from datetime import datetime
+from pathlib import Path
+
+CONFIG_PATH = Path.home() / ".forgeid" / "config.json"
+DEFAULT_OUTPUT_DIR = Path.cwd() / "artifacts" / "ids"
+
+# Initialize segment store with new structure
+SEGMENTS = {
+    "segment_types": ["PID", "SPID", "SSPID", "SSSPID"],
+    "PID": {
+        "components": {
+            "project": {
+                "GNS": {"label": "GhoulNet Sanctuary", "type": "Project Codename"}
+            },
+            "directive": {
+                "Σ": {"label": "Sigma", "type": "Directive Core"}
+            },
+            "node": {
+                "13": {"label": "Thirteen", "type": "Numerical Node"}
+            },
+            "wildcard": {
+                "X": {"label": "Unknown/Chaos", "type": "Wildcard Directive", "chaos": True}
+            },
+            "anchor": {
+                "706": {"label": "Code 706", "type": "Personal Anchor"}
+            }
+        },
+        "order": ["project", "directive", "node", "wildcard", "anchor"]
+    },
+    "SPID": {
+        "components": {
+            "subsystem": {
+                "R": {"label": "Rituals", "type": "Subsystem"}
+            },
+            "module": {
+                "CS": {"label": "CleanSlate", "type": "Module"}
+            },
+            "instance": {
+                "001": {"label": "Instance ID", "type": "Counter", "instance": True}
+            }
+        },
+        "order": ["subsystem", "module", "instance"]
+    },
+    "SSPID": {
+        "components": {
+            "encryption": {
+                "ENC": {"label": "Encryption", "type": "Security Layer"}
+            },
+            "version": {
+                "A1": {"label": "Version A1", "type": "Implementation"}
+            }
+        },
+        "order": ["encryption", "version"]
+    },
+    "SSSPID": {
+        "components": {
+            "encoding": {
+                "BASE64": {"label": "Base64", "type": "Encoding Scheme"}
+            },
+            "core": {
+                "CORE": {"label": "Core", "type": "Central Component"}
+            }
+        },
+        "order": ["encoding", "core"]
+    }
+}
+
+# Chaos symbols for wildcards
+CHAOS_SYMBOLS = ["X", "Ω", "∅", "∞", "¤", "§", "†"]
+
+# Symbol mapping for directives
+DIRECTIVE_SYMBOLS = {
+    "alpha": "α", "beta": "β", "gamma": "γ", "delta": "δ", "sigma": "Σ",
+    "theta": "Θ", "omega": "Ω", "lambda": "λ", "phi": "Φ", "psi": "Ψ"
+}
+
+def load_config():
+    if CONFIG_PATH.exists():
+        with open(CONFIG_PATH, 'r') as f:
+            return json.load(f)
+    else:
+        return None
+
+def save_config(config):
+    CONFIG_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with open(CONFIG_PATH, 'w') as f:
+        json.dump(config, f, indent=4)
+
+def abbreviate_name(name):
+    """Convert name to abbreviated code (e.g., Operation Sissy Feminizer -> OSF)"""
+    words = re.findall(r'\b\w', name.upper())
+    return ''.join(words)[:3]
+
+def interactive_mode():
+    """Interactive workflow for building FQIDs"""
+    print("\n" + "="*50)
+    print("Identification Forge Initiated......")
+    print("="*50 + "\n")
+    
+    # Check for existing config
+    config = load_config()
+    use_default = False
+    
+    if config:
+        response = input("Would you like to use the default settings for this task? [Y/n]: ").strip().lower()
+        if response in ['y', '']:
+            use_default = True
+            print("✅ Default configuration applied")
+        else:
+            print("⚠️ System default not applied")
+    
+    print("\n" + "="*50)
+    print("IDENTIFICATION FORGE ACTIVE...... Proceed with Caution")
+    print("="*50 + "\n")
+    
+    # Start building PID
+    pid_components = {}
+    
+    # Project name
+    if use_default and config and "PID" in config and "project" in config["PID"]["components"]:
+        default_project = next(iter(config["PID"]["components"]["project"].items()))
+        project_name = input(f"Project name? [default: {default_project[1]['label']}]: ").strip()
+        if not project_name:
+            project_name = default_project[1]['label']
+            project_code = default_project[0]
+        else:
+            project_code = abbreviate_name(project_name)
+    else:
+        project_name = input("What is the name of the project? ").strip()
+        project_code = abbreviate_name(project_name)
+    
+    print(f"🔒 '{project_name}' is locked in as '{project_code}'")
+    pid_components['project'] = (project_code, project_name)
+    
+    # Prime directive
+    print("\nAvailable directives:")
+    for name, symbol in DIRECTIVE_SYMBOLS.items():
+        print(f"  {name.capitalize()} ({symbol})")
+    
+    directive = input("What is the prime directive? ").strip().lower()
+    if directive in DIRECTIVE_SYMBOLS:
+        core_symbol = DIRECTIVE_SYMBOLS[directive]
+        print(f"🔒 Prime directive '{directive}' ({core_symbol}) locked in")
+    else:
+        core_symbol = directive  # Allow custom symbols
+        print(f"🔒 Custom directive '{core_symbol}' locked in")
+    pid_components['directive'] = core_symbol
+    
+    # Numerical node (fixed at 13)
+    node = "13"
+    print(f"🔒 Numerical node set to {node}")
+    pid_components['node'] = node
+    
+    # Chaos wildcard
+    feeling_lucky = input("\nAre you feeling lucky? [y/N]: ").strip().lower()
+    if feeling_lucky == 'y':
+        final_answer = input("Is that your final answer? [y/N]: ").strip().lower()
+        if final_answer == 'y':
+            chaos_symbol = random.choice(CHAOS_SYMBOLS)
+            print(f"🔒 Chaos activated! Symbol: {chaos_symbol}")
+        else:
+            print("🤔 Soon you will understand the question, then maybe you will have the answer.")
+            chaos_symbol = 'X'
+            print(f"🔒 Chaos symbol set to default: {chaos_symbol}")
+    else:
+        chaos_symbol = 'X'
+        print(f"🔒 Chaos symbol set to default: {chaos_symbol}")
+    pid_components['wildcard'] = chaos_symbol
+    
+    # Anchor code
+    anchor = input("\nAnchor Code? ").strip()
+    if not anchor:
+        anchor = "706"
+    pid_components['anchor'] = anchor
+    
+    # Build PID
+    pid = f"{project_code}-{core_symbol}{node}{chaos_symbol}-{anchor}"
+    print(f"\n🌟 PID Generated: {pid}")
+    
+    # Initialize FQID with PID
+    fqid_parts = [pid]
+    segments = ["PID"]
+    
+    # Ask about subsystems
+    while True:
+        add_subsystem = input("\nIs that all or did you have a subsystem to add? [y/N]: ").strip().lower()
+        if add_subsystem != 'y':
+            break
+        
+        # Determine segment type
+        segment_type = f"SEGMENT_{len(segments)}"
+        if len(segments) == 1:
+            segment_type = "SPID"
+        elif len(segments) == 2:
+            segment_type = "SSPID"
+        elif len(segments) == 3:
+            segment_type = "SSSPID"
+        segments.append(segment_type)
+        
+        # Get subsystem location
+        location = input("Where is this subsystem located? ").strip()
+        
+        # Get process name
+        process_name = input("What is the name of the sub process? ").strip()
+        process_code = abbreviate_name(process_name)
+        
+        # Instance ID
+        first_instance = input("Is this the first instance? [Y/n]: ").strip().lower()
+        if first_instance in ['y', '']:
+            instance_id = "001"
+        else:
+            # In a real system, we'd track and increment instance IDs
+            instance_id = input("What instance number should be used? (3 digits) ").strip()
+            instance_id = instance_id.zfill(3)
+        
+        # Build segment
+        segment = f"{location}{process_code}-{instance_id}"
+        fqid_parts.append(segment)
+        print(f"🔒 {segment_type} added: {segment}")
+        
+        # Ask about additional segments
+        if len(segments) >= 4:
+            print("Maximum segments reached")
+            break
+    
+    # Build FQID
+    fqid = ":".join(fqid_parts)
+    print(f"\n🌟 FQID Generated: {fqid}")
+    
+    # Generate documentation
+    output_dir = DEFAULT_OUTPUT_DIR
+    output_dir.mkdir(parents=True, exist_ok=True)
+    now = datetime.now().strftime("%Y-%m-%d")
+    filename = f"{fqid.replace(':', '_')}_{now}.md"
+    filepath = output_dir / filename
+    
+    with open(filepath, 'w') as f:
+        f.write(f"# Fully Qualified Identifier (FQID) Breakdown\n")
+        f.write(f"**FQID**: `{fqid}`\n\n")
+        f.write(f"> Use this to uniquely identify this subsystem. Append this identifier to relevant files.\n\n")
+        
+        # PID Breakdown
+        f.write("## PID Segments\n")
+        f.write("| Component | Code | Meaning |\n")
+        f.write("|-----------|------|---------|\n")
+        f.write(f"| Project | `{pid_components['project'][0]}` | {pid_components['project'][1]} |\n")
+        f.write(f"| Directive | `{pid_components['directive']}` | Core Directive |\n")
+        f.write(f"| Node | `{pid_components['node']}` | Numerical Node |\n")
+        f.write(f"| Wildcard | `{pid_components['wildcard']}` | Chaos Element |\n")
+        f.write(f"| Anchor | `{pid_components['anchor']}` | Personal Anchor |\n")
+        f.write("\n")
+        
+        # Additional segments
+        for i, part in enumerate(fqid_parts[1:]):
+            seg_type = segments[i+1]
+            components = part.split('-')
+            if len(components) >= 2:
+                location_code = components[0][:-3]  # Remove process code
+                process_code = components[0][-3:]
+                instance_id = components[1]
+                
+                f.write(f"## {seg_type} Segments\n")
+                f.write("| Component | Code | Meaning |\n")
+                f.write("|-----------|------|---------|\n")
+                f.write(f"| Location | `{location_code}` | Subsystem Location |\n")
+                f.write(f"| Process | `{process_code}` | Sub Process |\n")
+                f.write(f"| Instance | `{instance_id}` | Instance ID |\n")
+                f.write("\n")
+    
+    print(f"\n📄 Documentation generated: {filepath}")
+    print("\nForgeID sequence finalized. Goodbye...")
+
+def main():
+    # Check if we should run in interactive mode
+    if len(os.sys.argv) == 1:
+        interactive_mode()
+        return
+    
+    # Otherwise use command-line interface
+    parser = argparse.ArgumentParser(description="forgeid: Dynamic FQID Generator & Parser")
+    parser.add_argument("--generate", action="store_true", help="Generate a new FQID")
+    
+    # Manual PID arguments
+    parser.add_argument("--project-name", help="Project name for manual PID")
+    parser.add_argument("--core-directive", help="Core directive for manual PID")
+    parser.add_argument("--node", help="Numerical node for manual PID")
+    parser.add_argument("-c", "--chaos", action="store_true", help="Use random chaos symbol (default is 'X')")
+    parser.add_argument("--anchor", help="Anchor for manual PID")
+    
+    parser.add_argument("--parse", help="Parse an existing FQID")
+    parser.add_argument("--output", type=str, default=str(DEFAULT_OUTPUT_DIR), help="Output directory")
+    parser.add_argument("--list", action="store_true", help="List all segments and components")
+    args = parser.parse_args()
+
+    config = load_config()
+    manual_pid = None
+    manual_pid_info = None
+
+    # Prepare manual PID info if any PID components are specified
+    if any([args.project_name, args.core_directive, args.node, args.anchor]):
+        # Set defaults for any missing components
+        project_name = args.project_name or "Unnamed Project"
+        core_directive = args.core_directive or "sigma"
+        node = args.node or "00"
+        anchor = args.anchor or "000"
+        
+        # Generate the manual PID
+        project_code = abbreviate_name(project_name)
+        core_symbol = DIRECTIVE_SYMBOLS.get(core_directive.lower(), core_directive)
+        chaos_symbol = random.choice(CHAOS_SYMBOLS) if args.chaos else 'X'
+        manual_pid = f"{project_code}-{core_symbol}{node}{chaos_symbol}-{anchor}"
+        
+        # Prepare info for markdown export
+        manual_pid_info = {
+            "project_name": project_name,
+            "project_code": project_code,
+            "core_directive": core_directive,
+            "core_symbol": core_symbol,
+            "node": node,
+            "chaos_symbol": chaos_symbol,
+            "anchor": anchor
+        }
+        print(f"[+] Manually generated PID: {manual_pid}")
+
+    if args.generate:
+        # For simplicity, we'll just generate a PID in non-interactive mode
+        print(f"[+] FQID: {manual_pid}")
+    elif args.parse:
+        parts = args.parse.split(":")
+        print("[✓] FQID Structure:")
+        for i, part in enumerate(parts):
+            seg_type = f"SEGMENT_{i+1}"
+            if i == 0:
+                seg_type = "PID"
+            elif i == 1:
+                seg_type = "SPID"
+            print(f"\n{seg_type}: {part}")
+    elif args.list:
+        config = load_config() or SEGMENTS
+        print("\n[Available Segment Types]")
+        for seg_type in config["segment_types"]:
+            print(f"\n{seg_type} Structure:")
+            if seg_type in config:
+                print(f"Order: {' → '.join(config[seg_type]['order'])}")
+                for comp_type in config[seg_type]["order"]:
+                    comp_group = config[seg_type]["components"].get(comp_type, {})
+                    print(f"\n  {comp_type.capitalize()} Options:")
+                    for key, props in comp_group.items():
+                        chaos_note = " [CHAOS]" if props.get("chaos") else ""
+                        instance_note = " [INSTANCE]" if props.get("instance") else ""
+                        print(f"    - {key}: {props.get('label', '')} ({props.get('type', '')}){chaos_note}{instance_note}")
+    else:
+        parser.print_help()
+
+if __name__ == "__main__":
+    main()

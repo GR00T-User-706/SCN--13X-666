@@ -1,0 +1,15 @@
+phantom_scry/
+├── core/
+│   ├── target_manager.py    # Load, Validate, Prioritize Target Lists
+│   ├── intel_harvester.py   # Entity Recon Scanner Engine (Web, Darknet, Shodan)
+│   ├── signature_db.json    # Corporate Signatures & Known Assets
+│   └── output_formatter.py  # JSON/CSV Structured Reports
+├── modules/
+│   ├── email_scraper.py     # Executive Email Recon
+│   ├── supply_chain_mapper.py # Subsidiary & Logistic Nodes Crawler
+│   ├── financial_trail.py   # Investment & Capital Flow Mapper
+│   └── legal_case_fetcher.py # Ongoing & Past Lawsuits Aggregator
+├── rituals/
+│   └── scry.py              # Master Orchestration Script
+└── artifacts/
+    └── intel_dumps/         # Generated Intel Files (Structured Dumps)

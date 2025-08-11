@@ -1,0 +1,40 @@
+{
+    "module_name": "ShadowVeil",
+    "module_type": "security/anti-forensics",
+    "package": "shadowveil",
+    "entry_point": "ShadowVeilCore",
+    "version": "3.0.0",
+    "description": "Cross-platform anti-forensics and operational security system",
+    "compatibility": {
+        "min_hub_version": "5.0.0",
+        "platforms": ["windows", "linux", "darwin"]
+    },
+    "integration_points": {
+        "menu": {
+            "path": "Security/Stealth",
+            "name": "ShadowVeil Console"
+        },
+        "context_actions": {
+            "Process/Execute": ["Execute with ShadowVeil"],
+            "File/Protect": ["Tunnel with ShadowVeil"]
+        },
+        "api_endpoints": [
+            {"method": "POST", "path": "/shadowveil/execute", "handler": "execute_stealth_command"},
+            {"method": "GET", "path": "/shadowveil/status", "handler": "get_stealth_status"}
+        ]
+    },
+    "config_options": [
+        {
+            "name": "stealth_mode",
+            "type": "string",
+            "options": ["standard", "stealth", "paranoid"],
+            "default": "standard"
+        },
+        {
+            "name": "encryption",
+            "type": "string",
+            "options": ["low", "medium", "high"],
+            "default": "high"
+        }
+    ]
+}

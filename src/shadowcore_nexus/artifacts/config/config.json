@@ -1,0 +1,116 @@
+#!/usr/bin/env python3
+
+
+# Base Segment Definitions - These can be extended interactively or manually 
+SEGMENTS = {
+    "PID": {
+        "GNS": {
+                "length": len("GNS"),
+                "label": "GhoulNet Sanctuary",
+                "type": "PRoject Codename"
+        },
+        "Σ": {
+                "length": len("Σ"),
+                "label": "Sigma",
+                "type": "Directive Core"
+        },
+        "13": {
+            "length": len("13"),
+            "label": "Thirteen",
+            "type": "Numerical Node"
+        },
+        "x": {
+            "length": len("x"),
+            "label": "Unkown/Chaos",
+            "type": "Wildcard Directive"
+        },
+        "706": {
+            "length": len("706"),
+            "label": "code 706",
+            "type": "Personal Anchor"
+        }
+    },
+    "SPID": {
+        "R": {
+            "Length": len("R"),
+            "label": "Rituals",
+            "type": "Subsystem"
+        },
+        "CS": {
+            "Length": len("CS"),
+            "label": "CleanSlate",
+            "type": "Module"
+        },
+        "001": {
+            "Length": len("001"),
+            "label": "Instance ID",
+            "Instance": True
+        }
+
+    },
+
+    "ΔΩID": {
+        "ΔΩ": {
+            "length": len("ΔΩ"),
+            "label": "Delta-Omega Protocol",
+            "type": "Event Layer",
+            "origin": "Metaphysical",
+            "priority": "Critical",
+            "notes": "Only triggered during SCORCHED EARTH"
+        }
+    }
+}
+
+"""
+#====================================================#
+Segments Expandable
+#====================================================#
+Just Copy any additional details needed and paste to a new file or directly to this file using a TUI or CLI, edit the data per each cell as needed. 
+if using a tui/cli just write straight to the file. other wise just copy and paste the new segments into this configuration section if using a text editor, then save the file
+#============================================================================================================#
+assidn the executable permission.
+chmod +x id_forge.py
+
+install locally
+mv id_forge.py ~/.local/bin/forgeid
+
+then call it from any directory like
+forgeid --generate --output ./somepath
+forgeid --parse GNS-Σ13X-706:RCS-001
+forgeid --list-segments
+
+#============================================================================================================#
+| Flag              | Description                                      |                                     |
+| ----------------- | ------------------------------------------------ | ----------------------------------- |
+| `--generate`      | Generate a new ID                                |                                     |
+| `--parse [ID]`    | Parse and explain an existing ID                 |                                     |
+| `--new-segment`   | Add a new PID or SPID segment                    |                                     |
+| \`--target \[PID  | SPID]\`                                          | Must be paired with `--new-segment` |
+| `--output [dir]`  | Set output dir for `.md` file                    |                                     |
+| `--list-segments` | List current PID/SPID segment configs            |                                     |
+| `--export [ID]`   | Export a breakdown `.md` of an existing PID/SPID |                                     |
+#============================================================================================================#
+config storage location
+~/.forgeid/config.json
+
+Config structure
+{
+  "PID": {
+    "GNS": {
+      "label": "GhoulNet Sanctuary",
+      "type": "Project Codename",
+      "notes": "..."
+    },
+    ...
+  },
+  "SPID": {
+    ...
+  }
+}
+
+
+
+
+"""
+
+

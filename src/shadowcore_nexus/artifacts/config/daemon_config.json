@@ -1,0 +1,11 @@
+{
+    "debug_mode": true,
+    "default_output_format": "txt",
+    "network_timeout": 5,
+    "log_level": "INFO",
+    "modules_enabled": [
+        "encoding",
+        "scanner",
+        "reverse_shell"
+    ]
+}

@@ -1,0 +1,170 @@
+Watcher Feed Online
+Watcher Feed Online
+Watcher Feed Online
+Watcher Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Daemon Feed Online
+Encoding Ritual Failed - No input specified.
+Encoding Ritual executed on error.txt\
+Encoding Ritual executed on error.txt
+Encoding Ritual Failed - No input specified.
+Encoding Ritual executed on testfile.txt
+Encoding Ritual executed on testfile.txt
+Scanner Ritual initiated scan on asdf
+Scanner Ritual completed simulated scan on asdf
+Scanner Ritual initiated scan on 192.168.1.1
+Scanner Ritual completed simulated scan on 192.168.1.1
+Scanner Ritual initiated scan on local
+Scanner Payload Error: [Errno 2] No such file or directory: 'arp'
+Encoding Ritual Failed - No input specified.
+Scanner Ritual initiated scan on 192.168.1.1
+Scanner Payload Error: Command '['arp', '-a']' returned non-zero exit status 255.
+Encoding Ritual executed on error.txt
+Scanner Ritual initiated scan on 192.168.1.1
+Scanner Payload Error: Command '['arp', '-a']' returned non-zero exit status 255.
+Encoding Ritual executed on error.txt
+Scanner Ritual initiated scan on 192.168.1.1/24
+Scanner Payload Error: Command '['arp', '-a']' returned non-zero exit status 255.
+Scanner Ritual Failed - No target specified.
+Encoding Ritual Failed - No input specified.
+Encoding Ritual executed on file.txt
+Scanner Ritual initiated scan on 192.168.1.1
+Scanner Payload Error: Command '['arp', '-a']' returned non-zero exit status 255.
+Encoding Ritual executed on 192.168.1.1
+Scanner Ritual initiated scan on 192.168.1.1
+Scanner Payload Error: Command '['arp', '-a']' returned non-zero exit status 255.
+Encoding Ritual Failed - No input specified.
+Scanner Ritual Failed - No target specified.
+Simulated Mapper started on 192.168.1.1
+Host Found: 192.168.1.12
+Host Found: 192.168.1.27
+Host Found: 192.168.1.227
+Host Found: 192.168.1.127
+Host Found: 192.168.1.195
+Open Port on 192.168.1.12: 80
+Open Port on 192.168.1.12: 3306
+Open Port on 192.168.1.27: 8080
+Open Port on 192.168.1.27: 443
+Open Port on 192.168.1.227: 3306
+Open Port on 192.168.1.227: 22
+Open Port on 192.168.1.127: 443
+Open Port on 192.168.1.127: 22
+Open Port on 192.168.1.195: 22
+Open Port on 192.168.1.195: 8080
+Simulated Mapper completed scan.
+Simulated Mapper started on 192.168.1.1
+Host Found: 192.168.1.205
+Host Found: 192.168.1.218
+Host Found: 192.168.1.81
+Host Found: 192.168.1.198
+Host Found: 192.168.1.131
+Open Port on 192.168.1.205: 80
+Open Port on 192.168.1.205: 8080
+Open Port on 192.168.1.218: 80
+Open Port on 192.168.1.218: 3306
+Open Port on 192.168.1.81: 443
+Open Port on 192.168.1.81: 22
+Open Port on 192.168.1.198: 22
+Open Port on 192.168.1.198: 8080
+Open Port on 192.168.1.131: 80
+Open Port on 192.168.1.131: 3306
+Simulated Mapper completed scan.
+Scanner Ritual initiated scan on 192.168.1.1
+Scanner Payload Error: [Errno 2] No such file or directory: 'arp'
+Simulated Mapper started on 192.168.1.1
+Host Found: 192.168.1.121
+Host Found: 192.168.1.93
+Host Found: 192.168.1.152
+Host Found: 192.168.1.167
+Host Found: 192.168.1.72
+Open Port on 192.168.1.121: 22
+Open Port on 192.168.1.121: 3306
+Open Port on 192.168.1.93: 22
+Open Port on 192.168.1.93: 3306
+Open Port on 192.168.1.152: 443
+Open Port on 192.168.1.152: 22
+Open Port on 192.168.1.167: 3306
+Open Port on 192.168.1.167: 443
+Open Port on 192.168.1.72: 3306
+Open Port on 192.168.1.72: 8080
+Simulated Mapper completed scan.
+Encoding Ritual executed on py.txt
+Scanner Ritual initiated scan on 192.168.1.7
+Scanner Payload Error: [Errno 2] No such file or directory: 'arp'
+Simulated Mapper started on 3
+Host Found: 192.168.1.138
+Host Found: 192.168.1.231
+Host Found: 192.168.1.100
+Host Found: 192.168.1.238
+Host Found: 192.168.1.4
+Open Port on 192.168.1.138: 8080
+Open Port on 192.168.1.138: 3306
+Open Port on 192.168.1.231: 443
+Open Port on 192.168.1.231: 80
+Open Port on 192.168.1.100: 8080
+Open Port on 192.168.1.100: 443
+Open Port on 192.168.1.238: 80
+Open Port on 192.168.1.238: 22
+Open Port on 192.168.1.4: 80
+Open Port on 192.168.1.4: 22
+Simulated Mapper completed scan.
+Simulated Mapper Failed — No target range.
+Simulated Mapper started on 2
+Host Found: 192.168.1.4
+Host Found: 192.168.1.178
+Host Found: 192.168.1.11
+Host Found: 192.168.1.62
+Host Found: 192.168.1.47
+Open Port on 192.168.1.4: 443
+Open Port on 192.168.1.4: 8080
+Open Port on 192.168.1.178: 22
+Open Port on 192.168.1.178: 80
+Open Port on 192.168.1.11: 3306
+Open Port on 192.168.1.11: 80
+Open Port on 192.168.1.62: 8080
+Open Port on 192.168.1.62: 3306
+Open Port on 192.168.1.47: 3306
+Open Port on 192.168.1.47: 22
+Simulated Mapper completed scan.
+Simulated Mapper started on 192.168.1.7
+Host Found: 192.168.1.121
+Host Found: 192.168.1.181
+Host Found: 192.168.1.16
+Host Found: 192.168.1.139
+Host Found: 192.168.1.240
+Open Port on 192.168.1.121: 22
+Open Port on 192.168.1.121: 8080
+Open Port on 192.168.1.181: 80
+Open Port on 192.168.1.181: 22
+Open Port on 192.168.1.16: 22
+Open Port on 192.168.1.16: 8080
+Open Port on 192.168.1.139: 80
+Open Port on 192.168.1.139: 3306
+Open Port on 192.168.1.240: 80
+Open Port on 192.168.1.240: 22
+Simulated Mapper completed scan.
+Scanner Ritual initiated scan on 192.168.1.7
+Scanner Payload Error: [Errno 2] No such file or directory: 'arp'
