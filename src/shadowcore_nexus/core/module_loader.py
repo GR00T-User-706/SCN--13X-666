@@ -1,68 +1,102 @@
-"""
-Module discovery and loading for Shadowcore Nexus.
-Detects and imports new modules in the hub directory.
-"""
-
-import importlib.util
-import os
-import sys
 from pathlib import Path
+import importlib.util
+import sys
+import traceback
+from typing import Dict, Optional
 from ..utils.validation import validate_module_contract
 from ..utils.logging import get_logger
 
 logger = get_logger(__name__)
 
+class ModuleEntry:
+    def __init__(self, path: Path):
+        self.path = path
+        self.key = path.stem
+        self.module = None
+        self.metadata = {}
+        self.mtime = 0
+
+    def load(self):
+        """Load a single module, validate it, and capture metadata."""
+        try:
+            spec_name = self.key
+            spec = importlib.util.spec_from_file_location(spec_name, str(self.path))
+            if not spec or not spec.loader:
+                raise ImportError(f"Invalid module: {spec_name}")
+
+            mod = importlib.util.module_from_spec(spec)
+            sys.modules[spec_name] = mod
+            spec.loader.exec_module(mod)  # type: ignore
+
+            # Validate module structure
+            mod = validate_module_contract(mod, spec_name)
+
+            # Prefer MODULE_META, else try register()
+            if hasattr(mod, "MODULE_META"):
+                self.metadata = getattr(mod, "MODULE_META", {}) or {}
+            elif hasattr(mod, "register") and callable(mod.register):
+                self.metadata = mod.register() or {}
+            elif hasattr(mod, "main") and callable(mod.main):
+                self.metadata = {"name": self.key, "run": getattr(mod, "main")}
+
+            self.module = mod
+            self.mtime = self.path.stat().st_mtime
+            logger.info(f"Loaded module: {self.key}")
+            return True
+        except Exception as e:
+            logger.error(f"Failed to load {self.key}: {e}")
+            traceback.print_exc()
+            return False
+
 class ModuleLoader:
-    def __init__(self, module_dir="modules"):
-        self.module_dir = Path(module_dir)
-        self.modules = {}
-        self._create_module_dir()
+    def __init__(self, modules_dir: Path = Path("modules")):
+        self.modules_dir = Path(modules_dir)
+        self.modules_dir.mkdir(parents=True, exist_ok=True)
+        self.entries: Dict[str, ModuleEntry] = {}
 
-    def _create_module_dir(self):
-        '''Ensure module directory exists'''
-        if not self.module_dir.exists():
-            self.module_dir.mkdir(parents=True, exist_ok=True)
-            logger.info(f"Created module directory: {self.module_dir}")
-    
-
-    def discover_modules(self):
-        self.modules.clear()
-        for file in self.module_dir.glob("*.py"):
-            if file.name.startswith("_"):
+    def discover_all(self):
+        """Load all modules in the directory."""
+        for p in sorted(self.modules_dir.glob("*.py")):
+            if p.name.startswith("_"):
                 continue
-            module_name = file.stem
+            key = p.stem
+            if key not in self.entries:
+                self.entries[key] = ModuleEntry(p)
+            self.entries[key].load()
+
+        # Prune removed
+        to_remove = [k for k, e in self.entries.items() if not e.path.exists()]
+        for k in to_remove:
+            self.entries.pop(k, None)
+
+    def get_list(self):
+        """Return list of (key, display_name, entry) tuples."""
+        return [(k, e.metadata.get("name", k), e) for k, e in self.entries.items()]
+
+    def reload_if_changed(self):
+        """Reload modules if file timestamps changed, detect new ones."""
+        changed = False
+        for k, e in list(self.entries.items()):
             try:
-                self.load_module(file, module_name)
-            except Exception as e:
-                logger.error(f"Faile to load {module_name}: {str(e)}")
+                mtime = e.path.stat().st_mtime
+                if mtime != e.mtime:
+                    logger.info(f"Reloading module: {k}")
+                    e.load()
+                    changed = True
+            except FileNotFoundError:
+                logger.warning(f"Module removed: {k}")
+                self.entries.pop(k, None)
+                changed = True
 
-    def load_module(self, file_path, module_name):
-    # Load a single module with validation and correction
-        spec = importlib.util.spec_from_file_location(module_name, file_path)
-        if not spec or not spec.loader:
-            raise ImportError(f"Invalid module: {module_name}")
-            
-        module = importlib.util.module_from_spec(spec)
-        sys.modules[module_name] = module
-        spec.loader.exec_module(module)
+        # Detect new files
+        for p in self.modules_dir.glob("*.py"):
+            if p.stem not in self.entries and not p.name.startswith("_"):
+                self.entries[p.stem] = ModuleEntry(p)
+                self.entries[p.stem].load()
+                changed = True
 
+        return changed
 
-        # Validate and correct module contract
-        validate_module = validate_module_contract(module, module_name)
-
-        self.modules[module_name] = {
-            "module": validate_module,
-            "path": file_path,
-            "metadata": getattr(validate_module, "MODULE_META", {})
-        }
-        logger.info(f"Loaded module: {module_name}")
-
-    """Retrieve loaded module by name"""
-    def get_module(self, name):
-        return self.modules.get(name, {}).get("module")
-   
-    """List all loaded modules with metadata"""
-    def list_modules(self):
-        return {name: data["metadata"] for name, data in self.modules.items()}
-
-
+    def get_entry(self, key) -> Optional[ModuleEntry]:
+        """Retrieve ModuleEntry by key."""
+        return self.entries.get(key)
