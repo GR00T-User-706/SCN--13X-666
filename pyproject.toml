@@ -3,10 +3,14 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "SCN-Σ13X-666"
+name = "ShadowCore_Nexus"
 version = "0.1.0"
-description = "A modular, plug-n-play, OS-independent Python dashboard hub."
+description = "SCN Σ13X666 — ShadowCore Nexus: A modular, plug-n-play, OS-independent Python dashboard hub."
 authors = [{ name="Crypto code Weaver", email="crypt-code-weaver@proton.me" }]
 readme = "README.md"
 requires-python = ">=3.8"
 license = { file="LICENSE" }
+
+[project.scripts]
+shadowcore_nexus = "shadowcore_nexus.__main__:main"
+shadowcorenexus = "shadowcore_nexus.__main__:main"
